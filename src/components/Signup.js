@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Card, Form, Button, Alert } from "react-bootstrap";
-import {useAuth} from './../context/AuthContext'
+import { useAuth } from './../context/AuthContext'
 
 
 
@@ -8,7 +8,7 @@ export default function Signup() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup,currentUser } = useAuth();
+    const { signup} = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -20,12 +20,12 @@ export default function Signup() {
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
             return setError('Password do Not Match')
         }
+
         try {
             setError("")
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
-        }
-        catch {
+        } catch {
             setError('Failed to create an account')
         }
         setLoading(false)
@@ -38,7 +38,7 @@ export default function Signup() {
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Sign Up</h2>
-                    {JSON.stringify(currentUser)}
+                    {/* {currentUser.email} */}
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
